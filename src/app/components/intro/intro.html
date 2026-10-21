@@ -1,0 +1,36 @@
+<section class="section intro" aria-labelledby="intro-title">
+  <div class="container grid">
+    <div class="statement reveal">
+      <p class="eyebrow">Our approach</p>
+      <h2 id="intro-title">An old family ritual, bottled with care.</h2>
+      <p>
+        In many Indian homes, Sunday began with a warm oil massage before washing the hair. Apars Herbal Care
+        keeps that ritual simple: familiar base oils, herbs you already know by name, and clear directions on
+        every bottle.
+      </p>
+      <ul class="principles">
+        @for (item of principles; track item.title) {
+          <li>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <figure class="label-figure reveal">
+      <picture>
+        <source srcset="/images/product-label-reference.webp" type="image/webp" />
+        <img
+          src="/images/product-label-reference.png"
+          alt="The full Apars Herbal Care Hair Oil label, showing ingredients, directions, caution notes, key herbs and manufacturer details"
+          width="854"
+          height="1281"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+      <figcaption>The complete product label, with directions printed in Hindi.</figcaption>
+    </figure>
+  </div>
+</section>

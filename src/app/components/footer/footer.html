@@ -1,0 +1,37 @@
+<footer class="site-footer">
+  <div class="container top">
+    <div class="brand">
+      <p class="mark">APARS</p>
+      <p class="mark-sub">Herbal Care</p>
+      <p class="tag">{{ brand.tagline }}</p>
+    </div>
+
+    <nav aria-label="Footer">
+      <h2>Explore</h2>
+      <ul>
+        @for (link of links; track link.fragment) {
+          <li><a [href]="'#' + link.fragment">{{ link.label }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <div class="reach">
+      <h2>Contact</h2>
+      <p><a [href]="'mailto:' + contact.email">{{ contact.email }}</a></p>
+      <address>
+        @for (line of contact.addressLines; track line) {
+          <span>{{ line }}</span>
+        }
+      </address>
+    </div>
+  </div>
+
+  <div class="container bottom">
+    <p class="copyright">© {{ year }} {{ developer.name }}. All rights reserved.</p>
+    <p>
+      Website designed and developed by
+      <a [href]="developer.url" target="_blank" rel="noopener noreferrer">{{ developer.name }}</a>
+    </p>
+    <p class="owner">{{ brand.name }} and its product names belong to their respective owner.</p>
+  </div>
+</footer>

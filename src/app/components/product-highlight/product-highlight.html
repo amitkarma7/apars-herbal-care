@@ -1,0 +1,51 @@
+<section class="highlight" aria-labelledby="highlight-title">
+  <div class="container grid">
+    <div class="visual reveal">
+      <div class="ring" aria-hidden="true"></div>
+      <app-product-visual class="bottle" [lazy]="true" [compact]="true" />
+    </div>
+
+    <div class="details reveal">
+      <p class="eyebrow">The product</p>
+      <h2 id="highlight-title">{{ brand.productName }}</h2>
+      <p class="net">Net quantity <strong>{{ brand.netQuantity }}</strong></p>
+
+      <dl class="spec">
+        <div>
+          <dt>Base oils</dt>
+          <dd>Pure coconut oil, cold-pressed sesame oil, castor oil</dd>
+        </div>
+        <div>
+          <dt>Also contains</dt>
+          <dd>Fenugreek, aloe vera extract, neem, vitamin E</dd>
+        </div>
+        <div>
+          <dt>Use</dt>
+          <dd>For external use on hair and scalp</dd>
+        </div>
+      </dl>
+
+      <ul class="chips" aria-label="Key herbs">
+        @for (herb of herbs; track herb) {
+          <li>{{ herb }}</li>
+        }
+      </ul>
+
+      <div class="actions">
+        @if (whatsapp) {
+          <a class="btn btn-whatsapp" [href]="whatsapp" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
+          <a class="btn btn-ghost" href="#order">Order form</a>
+        } @else {
+          <a class="btn btn-gold" [href]="mailto">
+            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+              <path d="M3 5h14v10H3zM3 5l7 6 7-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+            </svg>
+            Enquire by Email
+          </a>
+          <a class="btn btn-ghost" href="#order">Order form</a>
+        }
+      </div>
+      <p class="note">Price, payment options and delivery are confirmed by Apars Herbal Care when you order.</p>
+    </div>
+  </div>
+</section>

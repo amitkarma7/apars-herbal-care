@@ -1,0 +1,235 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  align-items: start;
+}
+
+.info {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.block {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ivory);
+}
+
+h3 {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+
+.email {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1rem + 1.2vw, 1.7rem);
+  font-weight: 600;
+  color: var(--forest);
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+address {
+  display: grid;
+  font-style: normal;
+  line-height: 1.6;
+}
+
+address strong {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--forest);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.small {
+  min-height: 44px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.95rem;
+}
+
+.builder {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.4rem, 1rem + 1.5vw, 2.2rem);
+  border-radius: var(--radius);
+  background: var(--cream);
+  border: 1px solid var(--line-gold);
+  min-width: 0;
+}
+
+.builder h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--forest);
+}
+
+.hint {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--forest-ink);
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+input,
+textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.6rem 0.8rem;
+  font: inherit;
+  font-weight: 400;
+  color: var(--forest-ink);
+  background: var(--ivory);
+  border: 1px solid rgba(29, 58, 40, 0.3);
+  border-radius: var(--radius-sm);
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+  border-color: var(--forest);
+}
+
+.product-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-sm);
+  background: var(--ivory);
+  border: 1px solid var(--line);
+}
+
+.product-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--forest);
+  line-height: 1.2;
+}
+
+.product-size {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(29, 58, 40, 0.3);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--ivory);
+}
+
+.stepper button {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  font-size: 1.3rem;
+  color: var(--forest);
+  cursor: pointer;
+}
+
+.stepper button:disabled {
+  color: rgba(29, 58, 40, 0.3);
+  cursor: default;
+}
+
+.stepper input {
+  width: 3rem;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-inline: 1px solid var(--line);
+  border-radius: 0;
+  text-align: center;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.stepper input::-webkit-outer-spin-button,
+.stepper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.preview summary {
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--forest);
+  width: fit-content;
+}
+
+.preview pre {
+  margin: 0.6rem 0 0;
+  padding: 0.9rem 1rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  background: var(--ivory);
+  border: 1px dashed var(--line-gold);
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .builder .row .btn {
+    flex: 1 1 100%;
+  }
+}

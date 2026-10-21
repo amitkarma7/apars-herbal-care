@@ -1,0 +1,60 @@
+.fab {
+  position: fixed;
+  z-index: 40;
+  right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px));
+  bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 16px));
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 56px;
+  padding: 0 1.25rem 0 1rem;
+  border-radius: 999px;
+  background: #25d366;
+  color: var(--forest-deep);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 12px 28px -10px rgba(19, 38, 25, 0.55);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+  animation: pop-in 0.5s 0.8s cubic-bezier(0.2, 0.8, 0.2, 1.2) both;
+}
+
+.fab:hover {
+  background: #1fbd5a;
+  transform: translateY(-2px);
+}
+
+.fab svg {
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .fab {
+    width: 56px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}

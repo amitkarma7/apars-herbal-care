@@ -1,0 +1,45 @@
+<section class="section how" id="how-to-use" aria-labelledby="how-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="eyebrow">Directions for use</p>
+      <h2 id="how-title">How to use, in four unhurried steps</h2>
+      <p>Best before a hair wash. Warm the bottle in your palms on cooler days so the oil flows easily.</p>
+    </header>
+
+    <ol class="steps">
+      @for (step of steps; track step.title; let i = $index) {
+        <li class="step reveal">
+          <span class="num" aria-hidden="true">{{ i + 1 }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+        </li>
+      }
+    </ol>
+
+    <div class="notes">
+      <aside class="hindi reveal" aria-labelledby="hindi-title">
+        <h3 id="hindi-title">उपयोग विधि <span>As printed on the label</span></h3>
+        <div lang="hi">
+          @for (line of hindi; track line) {
+            <p>{{ line }}</p>
+          }
+        </div>
+      </aside>
+
+      <aside class="caution reveal" aria-labelledby="caution-title">
+        <h3 id="caution-title">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 3l10 18H2L12 3z" />
+            <path d="M12 10v5M12 18h.01" />
+          </svg>
+          Caution
+        </h3>
+        <ul>
+          @for (item of cautions; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>

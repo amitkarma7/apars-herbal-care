@@ -1,0 +1,153 @@
+.highlight {
+  padding-block: var(--section-y);
+  background:
+    radial-gradient(ellipse 50% 70% at 20% 50%, rgba(142, 167, 135, 0.22), transparent 70%),
+    var(--forest);
+  color: var(--sage-soft);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2.5rem, 2rem + 4vw, 6rem);
+  align-items: center;
+}
+
+.visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding-block: 2rem;
+  min-width: 0;
+}
+
+.ring {
+  position: absolute;
+  width: min(90%, 340px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(220, 196, 143, 0.45);
+  box-shadow:
+    0 0 0 14px rgba(220, 196, 143, 0.06),
+    0 0 0 15px rgba(220, 196, 143, 0.25);
+}
+
+.visual .bottle {
+  position: relative;
+}
+
+.details {
+  display: grid;
+  gap: 1.1rem;
+  min-width: 0;
+}
+
+.eyebrow {
+  color: var(--gold-soft);
+}
+
+h2 {
+  font-size: var(--step-3);
+  color: var(--ivory);
+}
+
+.net {
+  font-size: var(--step-1);
+}
+
+.net strong {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--gold-soft);
+  margin-left: 0.3rem;
+}
+
+.spec {
+  margin: 0;
+  display: grid;
+  border-top: 1px solid rgba(220, 196, 143, 0.3);
+}
+
+.spec div {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 0.75rem;
+  border-bottom: 1px solid rgba(220, 196, 143, 0.3);
+}
+
+.spec dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  padding-top: 0.2rem;
+}
+
+.spec dd {
+  margin: 0;
+  color: var(--ivory);
+}
+
+.chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chips li {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(220, 196, 143, 0.55);
+  border-radius: 999px;
+  font-size: 0.92rem;
+  color: var(--ivory);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.btn-ghost {
+  color: var(--ivory);
+  border-color: rgba(251, 248, 240, 0.6);
+}
+
+.btn-ghost:hover {
+  background: var(--ivory);
+  color: var(--forest);
+}
+
+.note {
+  font-size: 0.9rem;
+  color: var(--sage);
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .visual .bottle {
+    width: min(48%, 180px);
+  }
+
+  .ring {
+    width: min(70%, 260px);
+  }
+}
+
+@media (max-width: 480px) {
+  .spec div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+  }
+
+  .actions .btn {
+    flex: 1 1 100%;
+  }
+}

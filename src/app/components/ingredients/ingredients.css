@@ -1,0 +1,141 @@
+.ingredients {
+  background:
+    linear-gradient(180deg, var(--cream), var(--ivory) 55%);
+  border-block: 1px solid var(--line-gold);
+}
+
+.key-herbs {
+  margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem);
+  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  border: 1px solid var(--line-gold);
+  border-radius: var(--radius);
+  background: var(--ivory);
+  box-shadow: inset 0 0 0 6px var(--ivory), inset 0 0 0 7px var(--line);
+}
+
+.key-title {
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.key-herbs ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem 1.25rem;
+}
+
+.key-herbs li {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.2rem;
+  flex: 1 1 140px;
+  max-width: 200px;
+  min-width: 0;
+}
+
+.key-herbs img {
+  width: clamp(72px, 4rem + 3vw, 104px);
+  border-radius: 50%;
+  border: 2px solid var(--forest);
+  box-shadow: 0 0 0 4px var(--ivory), 0 0 0 5px var(--line-gold);
+  margin-bottom: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.key-herbs li:hover img {
+  transform: rotate(-6deg) scale(1.04);
+}
+
+.herb-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--forest);
+  line-height: 1.15;
+}
+
+.herb-hi {
+  font-size: 0.95rem;
+  color: var(--gold-text);
+}
+
+.herb-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.45;
+  max-width: 16ch;
+}
+
+.grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: 1rem;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 1.25rem;
+  background: var(--ivory);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  padding: 6px;
+  border-radius: 50%;
+  background: var(--sage-wash);
+}
+
+.card-body {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.kind {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+.local {
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.desc {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--forest-ink);
+}

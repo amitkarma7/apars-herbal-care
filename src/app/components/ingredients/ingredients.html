@@ -1,0 +1,42 @@
+<section class="section ingredients" id="ingredients" aria-labelledby="ingredients-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="eyebrow">What’s inside</p>
+      <h2 id="ingredients-title">Twelve ingredients, all named on the label</h2>
+      <p>
+        Three nourishing base oils carry eight traditional botanicals and vitamin E. Nothing is hidden behind
+        a “secret formula”; here is everything that goes into the bottle.
+      </p>
+    </header>
+
+    <div class="key-herbs reveal" role="group" aria-labelledby="key-herbs-title">
+      <h3 id="key-herbs-title" class="key-title">Key herbs</h3>
+      <ul>
+        @for (herb of keyHerbs; track herb.name) {
+          <li>
+            <img [src]="herb.image" [alt]="herb.alt" width="144" height="144" loading="lazy" decoding="async" />
+            <span class="herb-name">{{ herb.name }}</span>
+            <span class="herb-hi" lang="hi">{{ herb.hindiNote }}</span>
+            <span class="herb-desc">{{ herb.description }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <ul class="grid">
+      @for (item of ingredients; track item.name) {
+        <li class="card reveal">
+          <app-botanical-icon class="icon" [name]="item.icon" />
+          <div class="card-body">
+            <p class="kind">{{ item.kind }}</p>
+            <h3>{{ item.name }}</h3>
+            @if (item.localName) {
+              <p class="local">{{ item.localName }}</p>
+            }
+            <p class="desc">{{ item.description }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
