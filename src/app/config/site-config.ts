@@ -86,7 +86,7 @@ export const SITE_CONFIG: SiteConfig = {
     labelFrontFallback: '/images/hair-oil-label-front.jpg',
   },
   seo: {
-    siteUrl: '',
+    siteUrl: 'https://aparsherbal.in/',
     title: 'Apars Herbal Care Hair Oil | Handcrafted with Traditional Herbs',
     description:
       'Apars Herbal Care Hair Oil (100 ml) blends coconut oil and cold-pressed sesame oil with bhringraj, amla, brahmi, hibiscus and curry leaves for a traditional hair-oiling ritual.',
