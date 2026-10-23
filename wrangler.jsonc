@@ -1,0 +1,11 @@
+{
+  // Cloudflare deploy settings for `npx wrangler deploy`.
+  // Serves the Angular build as static files (no server code).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "apars-herbal-care",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist/apars-herbal-care/browser",
+    "not_found_handling": "single-page-application"
+  }
+}
