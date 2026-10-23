@@ -10,12 +10,14 @@ import { NAV_LINKS } from '../../data/site-content';
   host: {
     '(document:keydown.escape)': 'close()',
     '(window:resize)': 'onResize()',
+    '(window:scroll)': 'onScroll()',
   },
 })
 export class Header {
   protected readonly brand = SITE_CONFIG.brand;
   protected readonly links = NAV_LINKS;
   protected readonly menuOpen = signal(false);
+  protected readonly scrolled = signal(false);
 
   protected toggle(): void {
     this.menuOpen.update((open) => !open);
@@ -23,6 +25,13 @@ export class Header {
 
   protected close(): void {
     this.menuOpen.set(false);
+  }
+
+  protected onScroll(): void {
+    const scrolled = window.scrollY > 12;
+    if (scrolled !== this.scrolled()) {
+      this.scrolled.set(scrolled);
+    }
   }
 
   protected onResize(): void {

@@ -1,11 +1,11 @@
 <section class="highlight" aria-labelledby="highlight-title">
   <div class="container grid">
-    <div class="visual reveal">
+    <div class="visual reveal" [class.photo-visual]="hasPhoto">
       <div class="ring" aria-hidden="true"></div>
       <app-product-visual class="bottle" [lazy]="true" [compact]="true" />
     </div>
 
-    <div class="details reveal">
+    <div class="details reveal" style="--i: 2">
       <p class="eyebrow">The product</p>
       <h2 id="highlight-title">{{ brand.productName }}</h2>
       <p class="net">Net quantity <strong>{{ brand.netQuantity }}</strong></p>
@@ -32,20 +32,18 @@
       </ul>
 
       <div class="actions">
-        @if (whatsapp) {
-          <a class="btn btn-whatsapp" [href]="whatsapp" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
-          <a class="btn btn-ghost" href="#order">Order form</a>
-        } @else {
-          <a class="btn btn-gold" [href]="mailto">
-            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-              <path d="M3 5h14v10H3zM3 5l7 6 7-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
-            </svg>
-            Enquire by Email
-          </a>
-          <a class="btn btn-ghost" href="#order">Order form</a>
-        }
+        <a
+          class="btn btn-whatsapp"
+          [href]="whatsapp ?? '#order'"
+          [attr.target]="whatsapp ? '_blank' : null"
+          [attr.rel]="whatsapp ? 'noopener noreferrer' : null"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3z"/></svg>
+          Order on WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="#order">Add delivery details</a>
       </div>
-      <p class="note">Price, payment options and delivery are confirmed by Apars Herbal Care when you order.</p>
+      <p class="note">Orders are taken on WhatsApp only. Price, payment options and delivery are confirmed in the chat.</p>
     </div>
   </div>
 </section>

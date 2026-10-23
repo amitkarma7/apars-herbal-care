@@ -57,7 +57,8 @@ public/
   images/
     product-label-reference.png   Original label (source reference)
     product-label-reference.webp  Optimised label shown on the page
-    hair-oil-label-front.webp/.jpg Front label used on the CSS bottle mockup
+    hair-oil-product-*.webp/.jpg  Bottle photograph shown in the hero and product sections
+    hair-oil-label-front.webp/.jpg Front label for the fallback CSS bottle mockup
     herbs/*.webp                  Key-herb roundels cropped from the label
     og-image.jpg                  Social sharing image (1200×630)
   favicon.ico, favicon.svg, apple-touch-icon.png
@@ -83,23 +84,27 @@ src/
 
 Almost everything is changed in **`src/app/config/site-config.ts`**.
 
-### Use a real product photo
-1. Save the photo as `public/images/hair-oil-product.webp` (portrait, about 600×900 px).
-2. Set `images.productPhoto: '/images/hair-oil-product.webp'`.
+### Product photo
+The site uses the bottle photograph in `public/images/`:
+`hair-oil-product.jpg` (fallback), `hair-oil-product-600.webp` and `hair-oil-product-900.webp` (fast loading), plus `hair-oil-product-original.png` as the source.
 
-The CSS bottle mockup is replaced everywhere automatically.
+To change it, replace those files (portrait, 9:16, bottle centred) or point `images.productPhoto`, `images.productPhotoWebp` and `images.productPhotoSize` in `site-config.ts` at new files.
+Set `images.productPhoto` to `''` to go back to the CSS bottle mockup.
 
-### Turn on WhatsApp ordering
-Set `contact.whatsappNumber` in `src/app/config/site-config.ts` to the full number with country code, digits only, for example `'919876543210'`, then rebuild.
+### WhatsApp ordering (required)
+Orders are taken **on WhatsApp only**. There is no email ordering.
 
-Once a valid number is set, the site switches to WhatsApp ordering everywhere:
-- a floating **Order on WhatsApp** button on every screen
-- **Order on WhatsApp** as the main button in the hero and product sections
-- the **Your order** form (quantity, name, phone, address, city, PIN code, note) opens WhatsApp with the order written out, ready to send
-- a **Chat on WhatsApp** link for questions
+Set `contact.whatsappNumber` in `src/app/config/site-config.ts` to the full number with country code, digits only, for example `'919876543210'`.
+**`npm run build` stops with an error until a valid number is set**, so the site can never go live without a way to order.
+For a local preview without a number: `ALLOW_MISSING_WHATSAPP=1 npm run build` (order buttons will not work in that build).
 
-While the number is empty or invalid, every WhatsApp button stays hidden and the order form sends by email instead.
-The message text is built by `orderMessage()` in the same file if you want to change its wording.
+Where customers can order:
+- **Order on WhatsApp** in the header, hero and product section
+- the floating WhatsApp button on every screen
+- the **Your order** form (quantity, name, phone, address, city, PIN code, note), which opens WhatsApp with the full order written out, ready to send
+- **Chat on WhatsApp** for questions before ordering
+
+The email address stays on the page for general questions only. The order message wording is in `orderMessage()` in `site-config.ts`.
 
 ### Set the website domain (canonical URL, sitemap)
 Set `seo.siteUrl` to the confirmed product domain, for example `'https://www.aparsherbalcare.in'` (no trailing slash), then rebuild.
@@ -113,6 +118,12 @@ Do not use mypilot.co.in here; it is only the developer credit link.
 
 Keep product copy cosmetic. Do not add claims that the oil cures hair loss, treats scalp conditions or guarantees regrowth unless you hold the evidence and approvals for them.
 
+### Animations
+All motion is CSS (transform and opacity only), plus one small scroll-reveal helper in `src/app/shared/reveal.ts`.
+- Add the `reveal` class to any element in a component that imports `Reveal` to fade it up on scroll; set `[style.--i]` on siblings to stagger them.
+- Each component's animation styles sit under a `/* ---------- Motion ---------- */` comment at the end of its `.css` file.
+- Visitors who turn on "reduce motion" in their phone or computer settings see the page without animation.
+
 ## 6. Deploying to Cloudflare Pages
 
 ### Option A: Git integration (recommended)
@@ -123,6 +134,7 @@ Keep product copy cosmetic. Do not add claims that the oil cures hair loss, trea
    - Build command: `npm run build`
    - Build output directory: `dist/apars-herbal-care/browser`
 4. Under **Environment variables**, add `NODE_VERSION` = `24` so the build uses a Node version Angular 22 accepts.
+   Make sure the WhatsApp number is set in `site-config.ts` before pushing, or the build will stop.
 5. Save and deploy. Every push to the main branch redeploys the site.
 
 ### Option B: Direct upload
@@ -143,7 +155,7 @@ Other static hosts (Netlify, Vercel, Firebase Hosting, GitHub Pages) work the sa
 ## 7. What a static site does not do
 
 - **No online payments or checkout.** There is no price on the site because none was supplied. Visitors enquire and the brand replies.
-- **No form submissions to a server.** The order form writes the order into a WhatsApp chat (or an email, if WhatsApp is not configured) and the customer sends it themselves. Nothing is stored or sent by the website. Orders are confirmed and paid for in the WhatsApp chat.
+- **Orders happen in WhatsApp, not on the website.** The order form writes the order into a WhatsApp message and the customer sends it themselves. Nothing is stored or sent by the website. Orders are confirmed and paid for in the WhatsApp chat, so the seller needs to watch that WhatsApp number.
 - **No order storage or customer management.** Enquiries arrive in the brand's email inbox.
 
 Adding payments, order tracking or a contact form that delivers without a mail app would need a backend or a third-party service (for example a payment gateway or a form endpoint).
@@ -156,13 +168,14 @@ Adding payments, order tracking or a contact form that delivers without a mail a
 - [ ] Mobile menu opens and closes with tap, keyboard (Enter/Space) and Escape
 - [ ] Every navigation link scrolls to its section; "Skip to main content" works with Tab
 - [ ] Visible focus ring on every link, button and field
-- [ ] Email buttons open a prefilled email to aparenterprises11@gmail.com
+- [ ] "Write an email" (general questions) opens a prefilled email to aparenterprises11@gmail.com
 - [ ] "Copy address" copies the email (or selects it if the browser blocks copying)
-- [ ] WhatsApp buttons are hidden while no number is configured
-- [ ] With a number set: the floating button, hero and product buttons open WhatsApp, and the order form sends the quantity and details you typed
+- [ ] `npm run build` stops with a clear message when no WhatsApp number is set
+- [ ] With the number set: every "Order on WhatsApp" button opens a chat with that number, and the order form sends the quantity and details you typed
+- [ ] No button offers ordering by email
 - [ ] Footer shows `© <current year> MyPilot.co.in. All rights reserved.` and the MyPilot link opens in a new tab
 - [ ] All 12 ingredients and 5 key herbs show with correct names
-- [ ] With reduced motion enabled in the OS, animations are off
+- [ ] Animations run smoothly on a mid-range phone; with reduced motion enabled in the OS, they are off and every section is visible
 - [ ] Lighthouse: Performance, Accessibility, Best Practices and SEO all 90+
 - [ ] After setting `seo.siteUrl`: canonical tag, `/sitemap.xml` and `/robots.txt` show the real domain
 - [ ] Shared link preview (WhatsApp, Facebook) shows the title, description and image

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { SITE_CONFIG, buildWhatsappLink, orderMessage, whatsappLink } from './config/site-config';
+import { buildWhatsappLink, orderMessage } from './config/site-config';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -29,17 +29,21 @@ describe('App', () => {
     expect(el.querySelector('.copyright')?.textContent?.trim()).toBe(`© ${year} MyPilot.co.in. All rights reserved.`);
   });
 
-  it('links the enquiry button to the brand email', async () => {
+  it('offers no way to order by email', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const el = fixture.nativeElement as HTMLElement;
-    const href = el.querySelector('#contact .builder a.btn-primary')?.getAttribute('href') ?? '';
-    expect(href.startsWith(`mailto:${SITE_CONFIG.contact.email}?`)).toBe(true);
+    expect(el.querySelectorAll('#order a[href^="mailto:"]').length).toBe(0);
+    expect(el.querySelectorAll('app-product-highlight a[href^="mailto:"]').length).toBe(0);
+    expect(el.querySelector('#order .order-btn')?.textContent).toContain('Order on WhatsApp');
   });
 
-  it('hides WhatsApp when no number is configured', () => {
-    expect(SITE_CONFIG.contact.whatsappNumber).toBe('');
-    expect(whatsappLink('hello')).toBeNull();
+  it('labels every order button for WhatsApp', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+    const heroCta = el.querySelector('app-hero .actions .btn-whatsapp');
+    expect(heroCta?.textContent).toContain('Order on WhatsApp');
   });
 
   it('writes the order details into the message', () => {
@@ -48,6 +52,12 @@ describe('App', () => {
     expect(msg).toContain('Name: Asha');
     expect(msg).toContain('City: Indore');
     expect(msg).not.toContain('Phone:');
+  });
+
+  it('sends the order message to the configured number', () => {
+    const link = buildWhatsappLink('919876543210', orderMessage({ quantity: '2' }));
+    expect(link?.startsWith('https://wa.me/919876543210?text=')).toBe(true);
+    expect(decodeURIComponent(link!.split('text=')[1])).toContain('Quantity: 2 bottles');
   });
 
   it('builds a wa.me link only for a valid number', () => {

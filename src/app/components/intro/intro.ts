@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Reveal } from '../../shared/reveal';
 
 interface Principle {
   readonly title: string;
@@ -8,6 +9,7 @@ interface Principle {
 @Component({
   selector: 'app-intro',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Reveal],
   templateUrl: './intro.html',
   styleUrl: './intro.css',
 })

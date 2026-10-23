@@ -14,17 +14,22 @@ export interface SiteConfig {
     readonly email: string;
     readonly addressLines: readonly string[];
     /**
-     * WhatsApp number in international format, digits only, including country code
-     * (for example 91XXXXXXXXXX). Leave empty to hide every WhatsApp button.
+     * REQUIRED. Orders are taken on WhatsApp only, and every order button sends to this number.
+     * International format, digits only, including country code (for example 91XXXXXXXXXX).
+     * `npm run build` stops with an error until a valid number is set.
      */
     readonly whatsappNumber: string;
   };
   readonly images: {
     /**
-     * Path to a real photograph of the bottle (for example /images/hair-oil-product.webp).
+     * Real photograph of the bottle (JPEG or PNG fallback, portrait 9:16).
      * Leave empty to show the CSS bottle mockup wrapped in the label artwork.
      */
     readonly productPhoto: string;
+    /** Optional WebP versions of the photo as a srcset string, for faster loading. */
+    readonly productPhotoWebp: string;
+    /** Pixel size of the photo, used to reserve space while it loads. */
+    readonly productPhotoSize: { readonly width: number; readonly height: number };
     /** Label artwork used on the CSS bottle mockup. */
     readonly labelFront: string;
     readonly labelFrontFallback: string;
@@ -59,7 +64,9 @@ export const SITE_CONFIG: SiteConfig = {
     whatsappNumber: '+919109253347',
   },
   images: {
-    productPhoto: '',
+    productPhoto: '/images/hair-oil-product.jpg',
+    productPhotoWebp: '/images/hair-oil-product-600.webp 600w, /images/hair-oil-product-900.webp 900w',
+    productPhotoSize: { width: 900, height: 1599 },
     labelFront: '/images/hair-oil-label-front.webp',
     labelFrontFallback: '/images/hair-oil-label-front.jpg',
   },
@@ -90,9 +97,6 @@ export function whatsappLink(message: string): string | null {
   return buildWhatsappLink(SITE_CONFIG.contact.whatsappNumber, message);
 }
 
-/** True when a valid WhatsApp number is set, so ordering on WhatsApp is available. */
-export const WHATSAPP_ENABLED = whatsappLink('') !== null;
-
 export interface OrderDetails {
   readonly quantity: string;
   readonly name?: string;
@@ -103,7 +107,7 @@ export interface OrderDetails {
   readonly note?: string;
 }
 
-/** The order message sent on WhatsApp (and by email when WhatsApp is not configured). */
+/** The order message the customer sends on WhatsApp. */
 export function orderMessage(order: OrderDetails): string {
   const { brand } = SITE_CONFIG;
   const qty = Math.max(1, Math.floor(Number(order.quantity) || 1));

@@ -12,8 +12,8 @@
     <div class="key-herbs reveal" role="group" aria-labelledby="key-herbs-title">
       <h3 id="key-herbs-title" class="key-title">Key herbs</h3>
       <ul>
-        @for (herb of keyHerbs; track herb.name) {
-          <li>
+        @for (herb of keyHerbs; track herb.name; let i = $index) {
+          <li [style.--i]="i">
             <img [src]="herb.image" [alt]="herb.alt" width="144" height="144" loading="lazy" decoding="async" />
             <span class="herb-name">{{ herb.name }}</span>
             <span class="herb-hi" lang="hi">{{ herb.hindiNote }}</span>
@@ -24,8 +24,8 @@
     </div>
 
     <ul class="grid">
-      @for (item of ingredients; track item.name) {
-        <li class="card reveal">
+      @for (item of ingredients; track item.name; let i = $index) {
+        <li class="card reveal" [style.--i]="i % 4">
           <app-botanical-icon class="icon" [name]="item.icon" />
           <div class="card-body">
             <p class="kind">{{ item.kind }}</p>

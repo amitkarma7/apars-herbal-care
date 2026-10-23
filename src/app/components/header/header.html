@@ -1,4 +1,4 @@
-<header class="site-header" [class.open]="menuOpen()">
+<header class="site-header" [class.open]="menuOpen()" [class.scrolled]="scrolled()">
   <div class="container bar">
     <a class="wordmark" href="#home" (click)="close()" aria-label="Apars Herbal Care, back to top">
       <svg class="sprig" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
@@ -13,13 +13,13 @@
 
     <nav class="nav" id="site-nav" aria-label="Main">
       <ul>
-        @for (link of links; track link.fragment) {
-          <li>
+        @for (link of links; track link.fragment; let i = $index) {
+          <li [style.--i]="i">
             <a [href]="'#' + link.fragment" (click)="close()">{{ link.label }}</a>
           </li>
         }
       </ul>
-      <a class="btn btn-primary nav-cta" href="#order" (click)="close()">Order Now</a>
+      <a class="btn btn-primary nav-cta" href="#order" (click)="close()">Order on WhatsApp</a>
     </nav>
 
     <button

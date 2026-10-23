@@ -8,6 +8,8 @@
 }
 
 .grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   align-items: center;
@@ -108,7 +110,6 @@ h1 em {
 .bottle {
   position: relative;
   z-index: 2;
-  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .herb {
@@ -187,6 +188,23 @@ h1 em {
   color: var(--forest);
 }
 
+.photo-stage {
+  padding: 0 0 3rem;
+}
+
+.photo-stage::before {
+  content: '';
+  position: absolute;
+  inset: 8% -6% 3.5rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(176, 141, 60, 0.18), transparent 65%);
+}
+
+.photo-stage .seal {
+  right: 2%;
+  bottom: 16%;
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -222,8 +240,16 @@ h1 em {
 }
 
 @media (max-width: 520px) {
-  .bottle {
+  .stage:not(.photo-stage) .bottle {
     width: min(58%, 200px);
+  }
+
+  .photo-stage .bottle {
+    width: min(80%, 300px);
+  }
+
+  .photo-stage .seal {
+    right: 10px;
   }
 
   .facts {
@@ -257,5 +283,151 @@ h1 em {
 
   .actions .btn {
     flex: 1 1 100%;
+  }
+}
+
+/* ---------- Motion ---------- */
+
+/* Drifting leaves in the background */
+.leaves {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.leaf {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  fill: rgba(142, 167, 135, 0.28);
+  stroke: rgba(29, 58, 40, 0.22);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.leaf-1 { top: 12%; left: 4%; width: 28px; height: 28px; }
+.leaf-2 { top: 70%; left: 40%; width: 22px; height: 22px; }
+.leaf-3 { top: 8%; left: 52%; width: 26px; height: 26px; }
+.leaf-4 { top: 82%; left: 8%; width: 30px; height: 30px; }
+.leaf-5 { top: 30%; right: 3%; width: 24px; height: 24px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Staged entrance for the hero copy */
+  .copy > * {
+    animation: hero-in 0.9s var(--ease-out) both;
+  }
+
+  .copy > :nth-child(1) { animation-delay: 0.05s; }
+  .copy > :nth-child(2) { animation-delay: 0.15s; }
+  .copy > :nth-child(3) { animation-delay: 0.3s; }
+  .copy > :nth-child(4) { animation-delay: 0.45s; }
+  .copy > :nth-child(5) { animation-delay: 0.6s; }
+
+  /* A slow gold sheen across "Shiny" */
+  h1 em {
+    background: linear-gradient(100deg, var(--gold-text) 0%, var(--gold-text) 40%, #d6b46a 50%, var(--gold-text) 60%, var(--gold-text) 100%);
+    background-size: 250% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: sheen 6s 1.2s ease-in-out infinite;
+  }
+
+  /* The bottle rises in, then floats gently */
+  .bottle {
+    animation:
+      rise 1s 0.2s var(--ease-out) both,
+      bob 7s 1.4s ease-in-out infinite;
+  }
+
+  .photo-stage::before {
+    animation:
+      glow-in 1.2s 0.3s var(--ease-out) both,
+      breathe 8s 1.5s ease-in-out infinite;
+  }
+
+  .seal {
+    animation: seal-in 0.8s 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  }
+
+  .seal-ring {
+    animation: spin 24s linear infinite;
+  }
+
+  .tagline {
+    animation: hero-in 0.9s 1.1s var(--ease-out) both;
+  }
+
+  .leaf {
+    animation: drift 18s ease-in-out infinite;
+  }
+
+  .leaf-2 { animation-duration: 22s; animation-delay: -6s; }
+  .leaf-3 { animation-duration: 20s; animation-delay: -12s; }
+  .leaf-4 { animation-duration: 24s; animation-delay: -3s; }
+  .leaf-5 { animation-duration: 19s; animation-delay: -9s; }
+}
+
+.seal-ring {
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  border: 1px dashed var(--gold);
+  pointer-events: none;
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheen {
+  0%, 55% { background-position: 100% 0; }
+  100% { background-position: 0% 0; }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@keyframes seal-in {
+  from { opacity: 0; transform: scale(0.4) rotate(-40deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(14px, -18px) rotate(18deg); }
+  50% { transform: translate(-6px, -30px) rotate(-8deg); }
+  75% { transform: translate(-16px, -10px) rotate(12deg); }
+}
+
+@media (max-width: 900px) {
+  .leaf-2,
+  .leaf-3 {
+    display: none;
   }
 }

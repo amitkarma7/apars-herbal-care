@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   <title>Apars Herbal Care Hair Oil | Handcrafted with Traditional Herbs</title>
   <base href="/">
+  <script>
+    // Enables entrance animations only when they can run smoothly and the visitor allows motion.
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('anim');
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Apars Herbal Care Hair Oil (100 ml) blends coconut oil and cold-pressed sesame oil with bhringraj, amla, brahmi, hibiscus and curry leaves for a traditional hair-oiling ritual.">
   <meta name="theme-color" content="#1d3a28">
@@ -17,14 +23,14 @@
   <meta property="og:image" content="/images/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Apars Herbal Care Hair Oil label artwork">
+  <meta property="og:image:alt" content="Apars Herbal Care Hair Oil 100 ml bottle with coconut, hibiscus and amla">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <link rel="preload" as="image" href="/images/hair-oil-label-front.webp" type="image/webp">
+  <link rel="preload" as="image" type="image/webp" imagesrcset="/images/hair-oil-product-600.webp 600w, /images/hair-oil-product-900.webp 900w" imagesizes="(max-width: 520px) 70vw, 340px">
 
   <script type="application/ld+json">
   {

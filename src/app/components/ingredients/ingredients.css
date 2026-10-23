@@ -139,3 +139,51 @@ h3 {
   line-height: 1.5;
   color: var(--forest-ink);
 }
+
+/* ---------- Motion ---------- */
+.icon {
+  transition: transform 0.5s var(--ease-out), background-color 0.3s ease;
+}
+
+.card:hover .icon {
+  transform: rotate(-10deg) scale(1.08);
+  background: var(--sage-soft);
+}
+
+.card {
+  box-shadow: 0 0 0 rgba(19, 38, 25, 0);
+  transition:
+    border-color 0.25s ease,
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out);
+}
+
+.card:hover {
+  box-shadow: 0 18px 30px -22px rgba(19, 38, 25, 0.5);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host-context(html.anim) .key-herbs li {
+    opacity: 0;
+    transform: translateY(16px) scale(0.92);
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out);
+    transition-delay: calc(0.2s + var(--i, 0) * 110ms);
+  }
+
+  :host-context(html.anim) .key-herbs.in li {
+    opacity: 1;
+    transform: none;
+  }
+
+  .key-herbs li:hover img {
+    animation: sway 1.2s ease-in-out;
+  }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg) scale(1.04); }
+  30% { transform: rotate(-8deg) scale(1.06); }
+  65% { transform: rotate(6deg) scale(1.05); }
+}

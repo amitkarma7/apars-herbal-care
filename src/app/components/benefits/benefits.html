@@ -10,8 +10,8 @@
     </header>
 
     <ul class="list">
-      @for (benefit of benefits; track benefit.title) {
-        <li class="item reveal">
+      @for (benefit of benefits; track benefit.title; let i = $index) {
+        <li class="item reveal" [style.--i]="i">
           <span class="icon" aria-hidden="true">
             <svg viewBox="0 0 32 32" focusable="false">
               @switch (benefit.icon) {

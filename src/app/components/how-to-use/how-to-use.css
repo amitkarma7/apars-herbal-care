@@ -163,3 +163,63 @@
     margin-bottom: 0;
   }
 }
+
+/* ---------- Motion ---------- */
+.step {
+  transition: transform 0.35s var(--ease-out), border-color 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+}
+
+.num {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.4s ease;
+}
+
+/* The number circle fills with forest green as the step appears. */
+.num::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--forest);
+  transform: scale(0);
+  transition: transform 0.6s var(--ease-out);
+}
+
+.step.in .num,
+.step:hover .num {
+  color: var(--gold-soft);
+}
+
+.step.in .num::before,
+.step:hover .num::before {
+  transform: scale(1);
+}
+
+:host-context(html.anim) .step.in .num,
+:host-context(html.anim) .step.in .num::before {
+  transition-delay: calc(0.35s + var(--i, 0) * 90ms);
+}
+
+:host-context(html:not(.anim)) .num {
+  color: var(--gold-soft);
+}
+
+:host-context(html:not(.anim)) .num::before {
+  transform: scale(1);
+}
+
+.caution li::before {
+  transition: transform 0.3s ease;
+}
+
+.caution li:hover::before {
+  transform: scale(1.6);
+}

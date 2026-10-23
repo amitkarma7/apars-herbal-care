@@ -11,5 +11,7 @@ import { ProductVisual } from '../product-visual/product-visual';
 })
 export class Hero {
   protected readonly brand = SITE_CONFIG.brand;
+  protected readonly leaves = [1, 2, 3, 4, 5];
+  protected readonly hasPhoto = !!SITE_CONFIG.images.productPhoto;
   protected readonly whatsapp = whatsappLink(orderMessage({ quantity: '1' }));
 }

@@ -8,9 +8,35 @@
   width: min(100%, 210px);
 }
 
+:host(.has-photo) {
+  width: min(100%, 340px);
+}
+
+:host(.has-photo.compact) {
+  width: min(100%, 300px);
+}
+
+.frame {
+  margin: 0;
+  padding: 8px;
+  border-radius: 999px 999px 20px 20px;
+  background: var(--ivory);
+  border: 1px solid var(--gold);
+  box-shadow: 0 30px 50px -28px rgba(19, 38, 25, 0.55);
+}
+
+.frame picture {
+  display: block;
+  overflow: hidden;
+  border-radius: 999px 999px 14px 14px;
+  aspect-ratio: 9 / 14;
+}
+
 .photo {
   width: 100%;
-  border-radius: var(--radius);
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 62%;
 }
 
 .bottle {
@@ -79,4 +105,49 @@
     rgba(0, 0, 0, 0) 80%,
     rgba(0, 0, 0, 0.35) 100%
   );
+}
+
+/* Motion: the photo settles in, and a soft light passes over the glass on hover. */
+.frame {
+  position: relative;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+
+.frame::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 999px 999px 14px 14px;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 48%, transparent 62%);
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+.frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 40px 60px -30px rgba(19, 38, 25, 0.6);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:not(.compact)) .photo {
+    animation: settle 1.8s 0.2s var(--ease-out) both;
+  }
+
+  :host(:not(.compact)) .frame::after {
+    animation: glint 1.4s 1.3s var(--ease-soft) both;
+  }
+
+  .frame:hover::after {
+    animation: glint 1.1s var(--ease-soft);
+  }
+}
+
+@keyframes settle {
+  from { transform: scale(1.12); }
+  to { transform: none; }
+}
+
+@keyframes glint {
+  from { transform: translateX(-130%); }
+  to { transform: translateX(130%); }
 }
