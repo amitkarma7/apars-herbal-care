@@ -1,5 +1,13 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, isDevMode, signal, viewChild } from '@angular/core';
-import { SITE_CONFIG, enquiryMailto, orderMessage, whatsappLink } from '../../config/site-config';
+import {
+  SITE_CONFIG,
+  enquiryMailto,
+  formatPrice,
+  normaliseQuantity,
+  orderMessage,
+  orderTotal,
+  whatsappLink,
+} from '../../config/site-config';
 import { Reveal } from '../../shared/reveal';
 
 type CopyState = 'idle' | 'copied' | 'selected';
@@ -21,6 +29,8 @@ export class Contact {
   protected readonly contact = SITE_CONFIG.contact;
   protected readonly brand = SITE_CONFIG.brand;
   protected readonly devMode = isDevMode();
+  protected readonly terms = SITE_CONFIG.orderTerms;
+  protected readonly unitPrice = formatPrice(SITE_CONFIG.brand.price);
 
   protected readonly quantity = signal(1);
   protected readonly fields = {
@@ -32,6 +42,9 @@ export class Contact {
     note: signal(''),
   } satisfies Record<Field, ReturnType<typeof signal<string>>>;
   protected readonly copyState = signal<CopyState>('idle');
+  /** The customer must accept the prepaid, non-returnable terms before ordering. */
+  protected readonly termsAccepted = signal(false);
+  protected readonly total = computed(() => formatPrice(orderTotal(this.quantity())));
 
   private readonly emailText = viewChild.required<ElementRef<HTMLElement>>('emailText');
 
@@ -56,8 +69,11 @@ export class Contact {
   }
 
   protected setQuantity(value: number | string): void {
-    const n = Math.floor(Number(value));
-    this.quantity.set(Number.isFinite(n) ? Math.min(99, Math.max(1, n)) : 1);
+    this.quantity.set(normaliseQuantity(value));
+  }
+
+  protected setTermsAccepted(event: Event): void {
+    this.termsAccepted.set((event.target as HTMLInputElement).checked);
   }
 
   protected async copyEmail(): Promise<void> {

@@ -59,7 +59,7 @@ public/
     product-label-reference.webp  Optimised label shown on the page
     hair-oil-product-*.webp/.jpg  Bottle photograph shown in the hero and product sections
     hair-oil-label-front.webp/.jpg Front label for the fallback CSS bottle mockup
-    herbs/*.webp                  Key-herb roundels cropped from the label
+    herbs/*.webp                  Key-herb pictures cropped from the label
     og-image.jpg                  Social sharing image (1200×630)
   favicon.ico, favicon.svg, apple-touch-icon.png
   _headers                        Cloudflare Pages cache and security headers
@@ -91,6 +91,11 @@ The site uses the bottle photograph in `public/images/`:
 To change it, replace those files (portrait, 9:16, bottle centred) or point `images.productPhoto`, `images.productPhotoWebp` and `images.productPhotoSize` in `site-config.ts` at new files.
 Set `images.productPhoto` to `''` to go back to the CSS bottle mockup.
 
+### Price and order terms
+In `src/app/config/site-config.ts`:
+- `brand.price` is the price per 100 ml bottle (currently `299`). It appears on the price tag on the bottle, in the hero, in the product section, on the floating button and in the order form, where the total updates with the quantity (₹299 × bottles). Also update `"price"` in the product data in `src/index.html` if it changes.
+- `orderTerms` holds the prepaid and non-returnable wording. Customers see it in the order form and must tick "I understand this is a prepaid, non-returnable item" before the **Order on WhatsApp** button works. The WhatsApp message repeats the price, quantity, total and that acknowledgement.
+
 ### WhatsApp ordering (required)
 Orders are taken **on WhatsApp only**. There is no email ordering.
 
@@ -98,10 +103,9 @@ Set `contact.whatsappNumber` in `src/app/config/site-config.ts` to the full numb
 **`npm run build` stops with an error until a valid number is set**, so the site can never go live without a way to order.
 For a local preview without a number: `ALLOW_MISSING_WHATSAPP=1 npm run build` (order buttons will not work in that build).
 
-Where customers can order:
-- **Order on WhatsApp** in the header, hero and product section
-- the floating WhatsApp button on every screen
-- the **Your order** form (quantity, name, phone, address, city, PIN code, note), which opens WhatsApp with the full order written out, ready to send
+How ordering works:
+- **Order on WhatsApp** in the header, hero and product section, and the floating button, all lead to the **Your order** form, so every customer sees the total and the terms first
+- the form (quantity, name, phone, address, city, PIN code, note) shows the running total, asks the customer to accept the prepaid, non-returnable terms, then opens WhatsApp with the full order written out, ready to send
 - **Chat on WhatsApp** for questions before ordering
 
 The email address stays on the page for general questions only. The order message wording is in `orderMessage()` in `site-config.ts`.
@@ -174,7 +178,10 @@ Adding payments, order tracking or a contact form that delivers without a mail a
 - [ ] With the number set: every "Order on WhatsApp" button opens a chat with that number, and the order form sends the quantity and details you typed
 - [ ] No button offers ordering by email
 - [ ] Footer shows `© <current year> MyPilot.co.in. All rights reserved.` and the MyPilot link opens in a new tab
-- [ ] All 12 ingredients and 5 key herbs show with correct names
+- [ ] All 5 key herbs show with their pictures, and all 12 ingredient cards show with their icons
+- [ ] ₹299 shows on the bottle price tag, hero and product section
+- [ ] The order total updates with quantity (1 → ₹299, 3 → ₹897)
+- [ ] The order button stays locked until the prepaid, non-returnable box is ticked
 - [ ] Animations run smoothly on a mid-range phone; with reduced motion enabled in the OS, they are off and every section is visible
 - [ ] Lighthouse: Performance, Accessibility, Best Practices and SEO all 90+
 - [ ] After setting `seo.siteUrl`: canonical tag, `/sitemap.xml` and `/robots.txt` show the real domain
@@ -183,5 +190,5 @@ Adding payments, order tracking or a contact form that delivers without a mail a
 ## 9. Credits
 
 - Fonts (self-hosted through Fontsource, SIL Open Font License): Cormorant Garamond, Marcellus, Mukta
-- Label artwork and herb illustrations: from the Apars Herbal Care product label
+- Label artwork and product photo: supplied by Apars Herbal Care
 - Apars Herbal Care and its product names belong to their respective owner.

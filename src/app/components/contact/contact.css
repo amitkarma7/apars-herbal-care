@@ -265,3 +265,116 @@ textarea:focus-visible {
     flex: 1 1 100%;
   }
 }
+
+/* Price and total */
+.product-size strong {
+  color: var(--forest);
+  font-weight: 600;
+}
+
+.total-line {
+  flex-basis: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 0 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--line-gold);
+}
+
+.total-calc {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.total-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+
+.total-amount {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--forest);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Order terms */
+.terms {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-sm);
+  background: var(--ivory);
+  border: 1px solid var(--line-gold);
+}
+
+.terms-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+
+.terms ul {
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.terms li {
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+
+.terms-tag {
+  display: inline-block;
+  margin-right: 0.4rem;
+  padding: 0.05rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--forest);
+  color: var(--gold-soft);
+  vertical-align: 0.1em;
+}
+
+.terms-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.97rem;
+  cursor: pointer;
+}
+
+.terms-check input {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  min-height: 0;
+  margin: 0.1rem 0 0;
+  padding: 0;
+  accent-color: var(--forest);
+  cursor: pointer;
+}
+
+.terms-needed {
+  font-size: 0.88rem;
+  color: var(--hibiscus);
+}
+
+.order-btn:disabled {
+  filter: grayscale(0.4);
+}

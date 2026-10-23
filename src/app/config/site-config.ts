@@ -9,6 +9,15 @@ export interface SiteConfig {
     readonly productName: string;
     readonly netQuantity: string;
     readonly tagline: string;
+    /** Selling price per bottle in Indian rupees (whole rupees). */
+    readonly price: number;
+  };
+  /** Order terms shown to the customer before they order, and repeated in the WhatsApp message. */
+  readonly orderTerms: {
+    readonly payment: string;
+    readonly returns: string;
+    /** Text of the tick box the customer must accept before the order button works. */
+    readonly acceptance: string;
   };
   readonly contact: {
     readonly email: string;
@@ -57,6 +66,12 @@ export const SITE_CONFIG: SiteConfig = {
     productName: 'Apars Herbal Care Hair Oil',
     netQuantity: '100 ml',
     tagline: 'Nature’s care for your hair',
+    price: 299,
+  },
+  orderTerms: {
+    payment: 'Prepaid only. Pay in full before dispatch; payment details are shared on WhatsApp.',
+    returns: 'Non-returnable. Orders cannot be returned or exchanged once placed.',
+    acceptance: 'I understand this is a prepaid, non-returnable item.',
   },
   contact: {
     email: 'aparenterprises11@gmail.com',
@@ -107,15 +122,39 @@ export interface OrderDetails {
   readonly note?: string;
 }
 
+const INR = new Intl.NumberFormat('en-IN', {
+  style: 'currency',
+  currency: 'INR',
+  maximumFractionDigits: 0,
+});
+
+/** Formats whole rupees for display, for example 598 → "₹598". */
+export function formatPrice(amount: number): string {
+  return INR.format(amount);
+}
+
+/** Clamps any quantity input to a whole number between 1 and 99. */
+export function normaliseQuantity(value: number | string): number {
+  const n = Math.floor(Number(value));
+  return Number.isFinite(n) ? Math.min(99, Math.max(1, n)) : 1;
+}
+
+/** Order total for a quantity of bottles at the configured price. */
+export function orderTotal(quantity: number | string): number {
+  return normaliseQuantity(quantity) * SITE_CONFIG.brand.price;
+}
+
 /** The order message the customer sends on WhatsApp. */
 export function orderMessage(order: OrderDetails): string {
   const { brand } = SITE_CONFIG;
-  const qty = Math.max(1, Math.floor(Number(order.quantity) || 1));
+  const qty = normaliseQuantity(order.quantity);
   const lines = [
     `Hello ${brand.name}, I would like to place an order.`,
     '',
     `Product: ${brand.productName} (${brand.netQuantity})`,
+    `Price: ${formatPrice(brand.price)} per bottle`,
     `Quantity: ${qty} ${qty === 1 ? 'bottle' : 'bottles'}`,
+    `Total: ${formatPrice(orderTotal(qty))}`,
   ];
   const optional: [string, string | undefined][] = [
     ['Name', order.name],
@@ -129,7 +168,11 @@ export function orderMessage(order: OrderDetails): string {
   if (filled.length) {
     lines.push('', ...filled.map(([label, value]) => `${label}: ${value!.trim()}`));
   }
-  lines.push('', 'Please confirm the price, payment options and delivery time.');
+  lines.push(
+    '',
+    'I understand this is a prepaid, non-returnable item.',
+    'Please share the payment details and delivery time.',
+  );
   return lines.join('\n');
 }
 

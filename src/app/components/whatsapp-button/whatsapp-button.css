@@ -14,10 +14,11 @@
   font-weight: 600;
   text-decoration: none;
   box-shadow: 0 12px 28px -10px rgba(19, 38, 25, 0.55);
+  animation: pop-in 0.5s 0.8s cubic-bezier(0.2, 0.8, 0.2, 1.2) backwards;
   transition:
-    transform 0.2s ease,
+    opacity 0.25s ease,
+    transform 0.25s ease,
     background-color 0.2s ease;
-  animation: pop-in 0.5s 0.8s cubic-bezier(0.2, 0.8, 0.2, 1.2) both;
 }
 
 .fab::before {
@@ -43,6 +44,15 @@
 @keyframes ping {
   0% { opacity: 0.45; transform: scale(1); }
   45%, 100% { opacity: 0; transform: scale(1.35, 1.6); }
+}
+
+.fab.away {
+  opacity: 0;
+  transform: translateY(16px) scale(0.9);
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
 .fab:hover {

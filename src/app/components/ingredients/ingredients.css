@@ -1,6 +1,5 @@
 .ingredients {
-  background:
-    linear-gradient(180deg, var(--cream), var(--ivory) 55%);
+  background: linear-gradient(180deg, var(--cream), var(--ivory) 55%);
   border-block: 1px solid var(--line-gold);
 }
 
@@ -91,14 +90,6 @@
   background: var(--ivory);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  transition:
-    border-color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.card:hover {
-  border-color: var(--gold);
-  transform: translateY(-2px);
 }
 
 .icon {
@@ -141,15 +132,6 @@ h3 {
 }
 
 /* ---------- Motion ---------- */
-.icon {
-  transition: transform 0.5s var(--ease-out), background-color 0.3s ease;
-}
-
-.card:hover .icon {
-  transform: rotate(-10deg) scale(1.08);
-  background: var(--sage-soft);
-}
-
 .card {
   box-shadow: 0 0 0 rgba(19, 38, 25, 0);
   transition:
@@ -159,7 +141,18 @@ h3 {
 }
 
 .card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
   box-shadow: 0 18px 30px -22px rgba(19, 38, 25, 0.5);
+}
+
+.icon {
+  transition: transform 0.5s var(--ease-out), background-color 0.3s ease;
+}
+
+.card:hover .icon {
+  transform: rotate(-10deg) scale(1.08);
+  background: var(--sage-soft);
 }
 
 @media (prefers-reduced-motion: no-preference) {

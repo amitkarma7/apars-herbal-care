@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SITE_CONFIG, orderMessage, whatsappLink } from '../../config/site-config';
+import { SITE_CONFIG, formatPrice } from '../../config/site-config';
 import { KEY_HERBS } from '../../data/site-content';
 import { ProductVisual } from '../product-visual/product-visual';
 import { Reveal } from '../../shared/reveal';
@@ -16,5 +16,5 @@ export class ProductHighlight {
   protected readonly hasPhoto = !!SITE_CONFIG.images.productPhoto;
   protected readonly herbs = KEY_HERBS.map((herb) => herb.name);
 
-  protected readonly whatsapp = whatsappLink(orderMessage({ quantity: '1' }));
+  protected readonly price = formatPrice(SITE_CONFIG.brand.price);
 }
